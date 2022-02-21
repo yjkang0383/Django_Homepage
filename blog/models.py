@@ -2,6 +2,19 @@ from django.db import models
 from django.utils import timezone
 from django import forms
 
+# class Feed(models.Model):
+#
+#     title = models.CharField(max_length=200)
+#     content=models.TextField() #글내용
+#     image=models.TextField()   #피드이미지
+#     created_date = models.DateTimeField(default=timezone.now)
+#     user_id = models.TextField()# 글쓴이
+#
+#     lovelike_count=models.IntegerField() #하트 수
+#     like_count=models.IntegerField()#좋아요수
+#     dislike_count=models.IntegerField()#싫어요수
+
+
 # title 필드의 length가 2보다 작으면 검증오류 발생시키는 함수 선언하기
 def min_length_2_validator(value):
     if len(value) < 2:
