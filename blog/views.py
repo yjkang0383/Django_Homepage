@@ -134,6 +134,23 @@ def post_list(request):
 
     return render(request, 'blog/post_list.html', {'post_list': page})
 
+def content(request):
+    post_queryset = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
+    # Paginator 객체생성
+    paginator = Paginator(post_queryset, 2)
+
+    try:
+        # page number(페이지번호)를 화면에서 쿼리스트링으로 전달받는다
+        page_number = request.GET.get('page')
+        # 전달받은 페이지번호로 Page객체생성
+        page = paginator.page(page_number)
+    except PageNotAnInteger:
+        page = paginator.page(1)
+    except EmptyPage:
+        page = paginator.page(paginator.num_pages)
+
+    return render(request, 'blog/post_list.html', {'post_list': page})
+
 
 # Views 내에 선언된 함수로 인자로 HttpRequest 라는 객체를 Django가 전달해준다.
 # 글목록
@@ -155,24 +172,3 @@ def post_list(request):
 from django.shortcuts import render
 from rest_framework.views import APIView
 # Create your views here.
-
-# 글목록
-def content(request):
-    my_name = '장고웹프레임워크'
-    http_method = request.method
-
-    # return HttpResponse('''
-    #     <h2>Welcome {name}</h2>
-    #     <p>Http Method : {method}</p>
-    #     <p>Http headers User-Agent : {header}</p>
-    #     <p>Http Path : {mypath}</p>
-    # '''.format(name=my_name, method=http_method, header=request.headers['user-agent'], mypath=request.path))
-
-    # return render(request, 'blog/post_list.html')
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
-    return render(request, 'blog/content.html', {'content': posts})
-
-from django.shortcuts import render
-from rest_framework.views import APIView
-# Create your views here.
-
