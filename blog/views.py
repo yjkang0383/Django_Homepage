@@ -134,7 +134,7 @@ def post_list(request):
 
     return render(request, 'blog/post_list.html', {'post_list': page})
 
-def content(request):
+def introduction(request):
     post_queryset = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
     # Paginator 객체생성
     paginator = Paginator(post_queryset, 2)
@@ -170,5 +170,5 @@ def content(request):
 #     return render(request, 'blog/post_list.html', {'post_list': posts})
 
 from django.shortcuts import render
-from rest_framework.views import APIView
+
 # Create your views here.

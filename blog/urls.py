@@ -7,6 +7,9 @@ urlpatterns = [
     # path('', views.post_list, name='post_list_home'),
     path('', views.post_list ,name='post_list'),
 
+    # path('', views.post_list, name='post_list_home'),
+    path('introduction', views.introduction ,name='introduction'),
+
     # http://localhost:8000/blog/post/5
     path('post/<int:pk>', views.post_detail, name='post_detail'),
 
